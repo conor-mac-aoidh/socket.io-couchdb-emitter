@@ -3,7 +3,6 @@
  * Module dependencies.
  */
 
-var client = require('redis').createClient;
 var parser = require('socket.io-parser');
 var hasBin = require('has-binary-data');
 var msgpack = require('msgpack-js');
