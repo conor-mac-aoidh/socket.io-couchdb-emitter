@@ -39,6 +39,13 @@ function Emitter(opts){
   if (!(this instanceof Emitter)) return new Emitter(opts);
   opts = opts || {};
 
+  // handle uri string
+  if (opts.host && !opts.port) {
+    opts.host = opts.host.split(':');
+    opts.host = opts.host[0];
+    opts.port = opts.host[1];
+  }
+
   this.port = opts.port;
   this.host = opts.host;
   this.db = opts.db;
