@@ -42,8 +42,15 @@ function Emitter(opts){
   // handle uri string
   if (opts.host && !opts.port) {
     opts.host = opts.host.split(':');
-    opts.host = opts.host[0];
-    opts.port = opts.host[1];
+    // using basic auth
+    if(opts.host.indexOf('@') !== -1){
+      opts.port = opts.host.pop();
+      opts.host = opts.host.join(':');
+    }
+    else{
+      opts.host = opts.host[0];
+      opts.port = opts.host[1];
+    }
   }
 
   this.port = opts.port;
