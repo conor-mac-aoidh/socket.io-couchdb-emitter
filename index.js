@@ -149,6 +149,11 @@ Emitter.prototype.emit = function(){
       msg     : msg
     },
     json    : true
+  }, function(err){
+    // log errors
+    if(err){
+      console.error('[socket.io-couchdb-emitter]: error sending message to couch: ', err);
+    } 
   });
 
   // reset state
