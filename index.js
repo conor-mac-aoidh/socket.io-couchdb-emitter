@@ -152,7 +152,6 @@ Emitter.prototype.emit = function(){
     method  : 'POST',
     body    : {
       channel : this.key,
-      ts      : new Date().getTime(),
       msg     : msg
     },
     json    : true
