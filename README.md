@@ -7,7 +7,7 @@ easily from non-socket.io processes.
 ## How to use
 
 ```js
-var io = require('socket.io-couchdb-emitter')({ host: '127.0.0.1', port: 5984, db : 'socket.io' });
+var io = require('socket.io-couchdb-emitter')({ host: '127.0.0.1', port: 5984, db : 'socket.io', encode : true });
 setInterval(function(){
   io.emit('time', new Date);
 }, 5000);

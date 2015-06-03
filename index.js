@@ -54,6 +54,7 @@ function Emitter(opts){
     }
   }
 
+  this.encode = opts.encode || true;
   this.port = opts.port;
   this.host = opts.host;
   this.db = opts.db;
@@ -131,14 +132,19 @@ Emitter.prototype.emit = function(){
   debug('namespace: ', packet.nsp);
 
   // publish
-  var msg = msgpack.encode([packet, {
-    rooms : this._rooms,
-    flags : this._flags
-  }]).toString('hex');
-//  var msg = [packet, {
-//    rooms : [],
-//    flags : {}
-//  }];
+  var msg;
+  if(this.encode){
+    msg = msgpack.encode([packet, {
+      rooms : this._rooms,
+      flags : this._flags
+    }]).toString('hex');
+  }
+  else{
+    msg = [packet, {
+      rooms : [],
+      flags : {}
+    }];
+  }
   debug('raw data: ', msg);
   debug('reverse: ', msgpack.decode(new Buffer(msg, 'hex')));
   request({
@@ -146,6 +152,7 @@ Emitter.prototype.emit = function(){
     method  : 'POST',
     body    : {
       channel : this.key,
+      ts      : new Date().getTime(),
       msg     : msg
     },
     json    : true
