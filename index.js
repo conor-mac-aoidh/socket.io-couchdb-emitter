@@ -60,7 +60,6 @@ function Emitter(opts){
   else{
     this.encode = opts.encode;
   }
-  this.encode =
   this.port = opts.port;
   this.host = opts.host;
   this.db = opts.db;
@@ -144,15 +143,16 @@ Emitter.prototype.emit = function(){
       rooms : this._rooms,
       flags : this._flags
     }]).toString('hex');
+    debug('raw data: ', msg);
+    debug('msg contents: ', msgpack.decode(new Buffer(msg, 'hex')));
   }
   else{
     msg = [packet, {
       rooms : [],
       flags : {}
     }];
+    debug('msg contents: ', msg);
   }
-  debug('raw data: ', msg);
-  debug('reverse: ', msgpack.decode(new Buffer(msg, 'hex')));
   request({
     url     : this.base,
     method  : 'POST',
