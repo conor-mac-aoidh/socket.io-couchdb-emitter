@@ -54,7 +54,13 @@ function Emitter(opts){
     }
   }
 
-  this.encode = opts.encode || true;
+  if(typeof opts.encode === 'undefined'){
+    this.encode = false;
+  }
+  else{
+    this.encode = opts.encode;
+  }
+  this.encode =
   this.port = opts.port;
   this.host = opts.host;
   this.db = opts.db;
