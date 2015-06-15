@@ -129,29 +129,16 @@ Emitter.prototype.emit = function(){
   } else {
     packet.nsp = '/';
   }
-
-  debug('emitting data: ', [packet, {
+  debug('namespace: ', packet.nsp);
+  // publish
+  var msg = [packet, {
     rooms : this._rooms,
     flags : this._flags
-  }]);
-  debug('namespace: ', packet.nsp);
-
-  // publish
-  var msg;
+  }];
+  debug('msg contents: ', msg);
   if(this.encode){
-    msg = msgpack.encode([packet, {
-      rooms : this._rooms,
-      flags : this._flags
-    }]).toString('hex');
+    msg = msgpack.encode(msg).toString('hex');
     debug('raw data: ', msg);
-    debug('msg contents: ', msgpack.decode(new Buffer(msg, 'hex')));
-  }
-  else{
-    msg = [packet, {
-      rooms : [],
-      flags : {}
-    }];
-    debug('msg contents: ', msg);
   }
   request({
     url     : this.base,
