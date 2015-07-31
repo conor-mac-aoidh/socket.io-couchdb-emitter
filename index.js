@@ -63,7 +63,7 @@ function Emitter(opts){
   this.port = opts.port;
   this.host = opts.host;
   this.db = opts.db;
-  this.base = opts.host + ':' + opts.port + '/' + opts.db;
+  this.base = opts.host + ':' + opts.port + '/' + encodeURIComponent(opts.db);
 
   this.key = (opts.key || 'socket.io') + '#emitter';
 
